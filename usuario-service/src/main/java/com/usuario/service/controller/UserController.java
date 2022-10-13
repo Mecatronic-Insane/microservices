@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.usuario.service.entities.User;
 import com.usuario.service.service.UserService;
+import com.usuarios.service.models.Bike;
+import com.usuarios.service.models.Car;
 
 @RestController
 @RequestMapping("/user")
@@ -20,28 +22,51 @@ public class UserController {
 
 	@Autowired
 	private UserService userService;
-	
+
 	@GetMapping
-	public ResponseEntity<List<User>> listUsers(){
+	public ResponseEntity<List<User>> listUsers() {
 		List<User> users = userService.getAll();
-		if(users.isEmpty()) {
+		if (users.isEmpty()) {
 			return ResponseEntity.noContent().build();
 		}
 		return ResponseEntity.ok(users);
-	} 
-	
+	}
+
 	@GetMapping("/{id}")
-	public ResponseEntity<User> getUser(@PathVariable("id") int id){
+	public ResponseEntity<User> getUser(@PathVariable("id") int id) {
 		User user = userService.getUserById(id);
-		if(user == null) {
+		if (user == null) {
 			return ResponseEntity.notFound().build();
 		}
 		return ResponseEntity.ok(user);
 	}
-	
+
 	@PostMapping
-	public ResponseEntity<User> saveUser(@RequestBody User user){
+	public ResponseEntity<User> saveUser(@RequestBody User user) {
 		User newUser = userService.save(user);
 		return ResponseEntity.ok(newUser);
 	}
+
+	@GetMapping("/cars/{userId}")
+	public ResponseEntity<List<Car>> getCars(@PathVariable("userId") int userId) {
+		User user = userService.getUserById(userId);
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		List<Car> cars = userService.getCars(userId);
+		return ResponseEntity.ok(cars);
+	}
+
+	@GetMapping("/bikes/{userId}")
+	public ResponseEntity<List<Bike>> getBikes(@PathVariable("userId") int userId) {
+		User user = userService.getUserById(userId);
+		if (user == null) {
+			return ResponseEntity.notFound().build();
+		}
+
+		List<Bike> bikes = userService.getBikes(userId);
+		return ResponseEntity.ok(bikes);
+	}
+
 }
