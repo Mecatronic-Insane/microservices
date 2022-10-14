@@ -29,6 +29,7 @@ public class CarService {
 	}
 	
 	public List<Car> byUserId(int userId){
-		return carRepository.findByUserId(userId);
+		List<Car> cars = carRepository.findByUserId(userId);
+		return cars;
 	}
 }

@@ -1,6 +1,7 @@
 package com.usuario.service.controller;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -67,6 +68,24 @@ public class UserController {
 
 		List<Bike> bikes = userService.getBikes(userId);
 		return ResponseEntity.ok(bikes);
+	}
+	
+	@PostMapping("/car/{userId}")
+	public ResponseEntity<Car> saveCar(@PathVariable("userId") int userId, @RequestBody Car car){
+		Car newCar = userService.saveCar(userId, car);
+		return ResponseEntity.ok(newCar);
+	}
+	
+	@PostMapping("/bike/{userId}")
+	public ResponseEntity<Bike> saveBike(@PathVariable("userId") int userId, @RequestBody Bike bike){
+		Bike newBike = userService.saveBike(userId, bike);
+		return ResponseEntity.ok(newBike);
+	}
+	
+	@GetMapping("/all/{userId}")
+	public ResponseEntity<Map<String, Object>> listAllVehicles(@PathVariable("userId") int userId){
+		Map<String,Object> result = userService.getUserAndVehicles(userId);
+		return ResponseEntity.ok(result);
 	}
 
 }
