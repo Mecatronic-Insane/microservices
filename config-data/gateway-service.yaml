@@ -15,7 +15,7 @@ spring:
       discovery:
         locator:
           lower-case-service-id: true
-          enabled: false
+          enabled: true
       routes:
         - id: usuario-service
           uri: lb://usuario-service
