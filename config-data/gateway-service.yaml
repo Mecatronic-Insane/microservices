@@ -18,19 +18,19 @@ spring:
           enabled: true
       routes:
         - id: usuario-service
-          uri: lb://usuario-service
+          uri: lb://usuario-service/
           predicates:
             - Path=/user/**
           filters:
             - RewritePath=/user(?<segment>/?.*), /${segment}
         - id: car-service
-          uri: lb://car-service
+          uri: lb://car-service/
           predicates:
             - Path=/car/**
           filters:
             - RewritePath=/car(?<segment>/?.*), /${segment}
         - id: bike-service
-          uri: lb://bike-service
+          uri: lb://bike-service/
           predicates:
             - Path=/bike/**
           filters:
