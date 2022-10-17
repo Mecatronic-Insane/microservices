@@ -14,18 +14,24 @@ spring:
     gateway:
       discovery:
         locator:
-          enabled: true
-          lowerCaseServiceId: true
-        routes:
-          - id: usuario-service
-            uri: lb://usuario-service
-            predicates:
-              - Path=/user/**
-          - id: car-service
-            uri: lb://car-service
-            predicates:
-              - Path=/car/**
-          - id: bike-service
-            uri: lb://bike-service
-            predicates:
-              - Path=/bike/**
+          lower-case-service-id: true
+          enabled: false
+      routes:
+        - id: usuario-service
+          uri: lb://usuario-service
+          predicates:
+            - Path=/user/**
+          filters:
+            - RewritePath=/user(?<segment>/?.*), /${segment}
+        - id: car-service
+          uri: lb://car-service
+          predicates:
+            - Path=/car/**
+          filters:
+            - RewritePath=/car(?<segment>/?.*), /${segment}
+        - id: bike-service
+          uri: lb://bike-service
+          predicates:
+            - Path=/bike/**
+          filters:
+            - RewritePath=/bike(?<segment>/?.*), /${segment}
