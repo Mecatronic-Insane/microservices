@@ -15,16 +15,17 @@ spring:
       discovery:
         locator:
           enabled: true
+          lowerCaseServiceId: true
         routes:
-          - id: USUARIO-SERVICE
-            uri: lb://USUARIO-SERVICE
+          - id: usuario-service
+            uri: lb://usuario-service
             predicates:
-              - Path= /user/**
-          - id: CAR-SERVICE
-            uri: lb://CAR-SERVICE
+              - Path=/user/**
+          - id: car-service
+            uri: lb://car-service
             predicates:
-              - Path= /car/**
-          - id: BIKE-SERVICE
-            uri: lb://BIKE-SERVICE
+              - Path=/car/**
+          - id: bike-service
+            uri: lb://bike-service
             predicates:
-              - Path= /bike/**
+              - Path=/bike/**
