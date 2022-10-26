@@ -1,7 +1,7 @@
 server:
   port: 8081
-spring: 
-  cloud:
+spring:
+  cloud: 
     config:
       server:
         git:
@@ -10,4 +10,3 @@ spring:
           search-paths: config-data
   application:
     name: config-service
-                

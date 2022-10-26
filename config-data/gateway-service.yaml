@@ -6,34 +6,25 @@ eureka:
     register-with-eureka: true
     service-url:
       default-zone: http://localhost:8761/eureka
-  instance:
-    preferIpAddress: true
-    hostname: localhost
+    instance:
+      hostname: localhost
 
 spring:
   cloud:
     gateway:
       discovery:
-        enabled: true
         locator:
-          lower-case-service-id: true
           enabled: true
       routes:
         - id: usuario-service
-          uri: lb://usuario-service/
+          uri: lb://usuario-service
           predicates:
-            - Path=/user/**
-          filters:
-            - RewritePath=/user(?<segment>/?.*), /${segment}
+            - Path=/usuario/**
         - id: car-service
-          uri: lb://car-service/
+          uri: lb://car-service
           predicates:
             - Path=/car/**
-          filters:
-            - RewritePath=/car(?<segment>/?.*), /${segment}
         - id: bike-service
-          uri: lb://bike-service/
+          uri: lb://bike-service
           predicates:
             - Path=/bike/**
-          filters:
-            - RewritePath=/bike(?<segment>/?.*), /${segment}
